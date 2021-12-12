@@ -10,7 +10,7 @@ import com.Eseurveys.repository.UserRepository;
 import com.Eseurveys.service.UserService;
 
 @Service
-public class ServiceUserImpl implements UserService {
+public class UserServiceImpl implements UserService {
 
 	@Autowired
 	UserRepository userRepository;
