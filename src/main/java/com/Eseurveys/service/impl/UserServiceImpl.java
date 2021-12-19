@@ -41,4 +41,9 @@ public class UserServiceImpl implements UserService {
 		userRepository.deleteById(id);
 	}
 
+	@Override
+	public User getByPseudo(String pseudo) {
+		return userRepository.findByPseudo(pseudo);
+	}
+
 }

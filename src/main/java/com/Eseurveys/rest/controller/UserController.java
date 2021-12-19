@@ -68,5 +68,12 @@ public class UserController {
 		userDto = modelMapper.map(user, UserDto.class);
 		return ResponseEntity.status(HttpStatus.CREATED).body(userDto);
 	}
+	
+	@GetMapping("/user/pseudo/{pseudo}")
+	public Object getUserPseudo(@PathVariable String pseudo) {
+		User user = userService.getByPseudo(pseudo);
+		UserDto userDto = modelMapper.map(user, UserDto.class);
+		return ResponseEntity.status(HttpStatus.CREATED).body(userDto);
+	}
 
 }

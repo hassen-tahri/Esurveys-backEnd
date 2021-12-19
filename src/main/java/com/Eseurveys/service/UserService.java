@@ -14,5 +14,7 @@ public interface UserService {
 	List<User> getAll();
 
 	void deletUser(Long id);
+	
+	User getByPseudo(String pseudo);
 
 }
