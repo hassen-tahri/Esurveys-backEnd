@@ -78,12 +78,19 @@ public class InspecteurController {
 		Inspecteur inspecteur = modelMapper.map(inspecteurDto, Inspecteur.class);
 		try {
 			User user = userService.getUserById(idUser);
-			//inspecteur.setUser(user);
+			inspecteur.setUser(user);
 		} catch (Exception e) {
-			//inspecteur.setUser(null);
+			inspecteur.setUser(null);
 		}
 		inspecteur = inspecteurService.updateInpecteur(inspecteur, id);
 		inspecteurDto = modelMapper.map(inspecteur, InspecteurDto.class);
+		return ResponseEntity.status(HttpStatus.CREATED).body(inspecteurDto);
+	}
+
+	@GetMapping("/inspecteur/user/{id}")
+	public Object getInspecteurByUser(@PathVariable Long id) {
+		Inspecteur inspecteur = inspecteurService.getInpecteurByUser(id);
+		InspecteurDto inspecteurDto = modelMapper.map(inspecteur, InspecteurDto.class);
 		return ResponseEntity.status(HttpStatus.CREATED).body(inspecteurDto);
 	}
 

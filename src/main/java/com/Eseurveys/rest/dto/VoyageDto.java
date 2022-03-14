@@ -13,6 +13,7 @@ public class VoyageDto {
 	private Long id;
 	private String code;
 	private String etat;
+	private Boolean archive;
 	private Date dateChargement;
 	private Date dateDechargement;
 	private BateauDto bateau;

@@ -1,5 +1,6 @@
 package com.Eseurveys.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.Eseurveys.model.entity.Voyage;
@@ -24,5 +25,9 @@ public interface VoyageService {
 	List<Voyage> getByEtat(String etat);
 
 	Voyage getByCode(String code);
-
+	
+	List<Voyage> getByArchive(Boolean archive);
+	
+	List<Voyage> getByDateChargementInRange(Date dateDeb , Date dateFin);
+	
 }

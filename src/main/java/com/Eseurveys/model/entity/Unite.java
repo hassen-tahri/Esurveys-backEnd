@@ -9,8 +9,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -25,27 +26,22 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "UTILISATEUR")
-public class User {
+@Table(name = "UNITE")
+public class Unite {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private Long id;
 
-	@Column(name = "PSEUDO", length = 1000)
-	private String pseudo;
+	@Column(name = "MATRICULE", length = 1000)
+	private String matricule;
 
-	@Column(name = "MOT_DE_PASSE", length = 1000)
-	private String mpd;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "TYPE_REMORQUE_ID")
+	private TypeRemorque typeRemorque;
 
-	@Column(name = "ROLE", length = 1000)
-	private String role;
-
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-	private List<Chargeur> chargeur;
-
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-	private List<Inspecteur> inspecteur;
+	@OneToMany(mappedBy = "unite", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	private List<Unite> unite;
 
 }

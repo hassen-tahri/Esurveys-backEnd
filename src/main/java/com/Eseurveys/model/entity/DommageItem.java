@@ -1,8 +1,5 @@
 package com.Eseurveys.model.entity;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -20,41 +16,44 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-//cette classe designe le client
 @Entity
 @Data
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "CHARGEUR")
-public class Chargeur {
+@Table(name = "DOMMAGE_ITEM")
+public class DommageItem {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private Long id;
 
-	@Column(name = "INTITULE", length = 1000)
-	private String intitule;
+	@Column(name = "POSITION", length = 1000)
+	private String position;
 
-	@Column(name = "PAYS", length = 1000)
-	private String pays;
+	@Column(name = "DETAIL", length = 1000)
+	private String detail;
 
-	@Column(name = "EMAIL", length = 1000)
-	private String email;
+	@Column(name = "LONGUER", length = 1000)
+	private String longeur;
 
-	@Column(name = "NUM_TEL", length = 1000)
-	private String numTel;
+	@Column(name = "LARGEUR", length = 1000)
+	private String largeur;
 
-	@Column(name = "ADRESSE", length = 1000)
-	private String adresse;
+	@Column(name = "ANCIENNETE", length = 1000)
+	private String anciennete;
+
+	@Column(name = "DOMMAGE_VALUE", length = 1000)
+	private String dommageValue;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "UTILISATEUR_ID")
-	private User user;
+	@JoinColumn(name = "DOMMAGE_ID")
+	private Dommage dommage;
 
-	@OneToMany(mappedBy = "chargeur", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-	private List<Chargeur> chargeur;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CONSTAT_ID")
+	private Constat constat;
 
 }

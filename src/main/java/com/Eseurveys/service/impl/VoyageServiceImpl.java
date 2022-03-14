@@ -1,5 +1,6 @@
 package com.Eseurveys.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +67,16 @@ public class VoyageServiceImpl implements VoyageService {
 	@Override
 	public List<Voyage> getByEtat(String etat) {
 		return (List<Voyage>) voyageRepository.findByEtat(etat);
+	}
+
+	@Override
+	public List<Voyage> getByArchive(Boolean archive) {
+		return (List<Voyage>) voyageRepository.findByArchive(archive);
+	}
+
+	@Override
+	public List<Voyage> getByDateChargementInRange(Date dateDeb, Date dateFin) {
+		return (List<Voyage>) voyageRepository.findByDateChargementBetween(dateDeb, dateFin);
 	}
 
 }

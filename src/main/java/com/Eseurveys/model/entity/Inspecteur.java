@@ -1,5 +1,8 @@
 package com.Eseurveys.model.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -7,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -43,8 +48,14 @@ public class Inspecteur {
 	@Column(name = "NUM_TEL", length = 1000)
 	private String numTel;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "UTILISATEUR_ID")
 	private User user;
+
+	@OneToMany(mappedBy = "inspecteurDechargement", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	private List<Inspecteur> inspecteurDechargement;
+
+	@OneToMany(mappedBy = "inspecteurChargement", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	private List<Inspecteur> inspecteurChargement;
 
 }

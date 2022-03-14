@@ -53,7 +53,7 @@ public class ChargeurController {
 	}
 
 	@GetMapping("/chargeur/user/{id}")
-	public Object getchargeurByFormateurUser(@PathVariable Long id) {
+	public Object getchargeurByUserId(@PathVariable Long id) {
 		Chargeur chargeur = chargeurService.getChargeurByUser(id);
 		ChargeurDto chargeurDto = modelMapper.map(chargeur, ChargeurDto.class);
 		return ResponseEntity.status(HttpStatus.CREATED).body(chargeurDto);
@@ -89,7 +89,7 @@ public class ChargeurController {
 		} catch (Exception e) {
 			chargeur.setUser(null);
 		}
-		chargeur = chargeurService.updateChargeur(chargeur, idUser);
+		chargeur = chargeurService.updateChargeur(chargeur, id);
 		chargeurDto = modelMapper.map(chargeur, ChargeurDto.class);
 		return ResponseEntity.status(HttpStatus.CREATED).body(chargeurDto);
 	}

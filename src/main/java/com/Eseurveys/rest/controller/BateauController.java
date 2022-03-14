@@ -21,7 +21,6 @@ import com.Eseurveys.model.entity.Bateau;
 import com.Eseurveys.rest.dto.BateauDto;
 import com.Eseurveys.service.BateauService;
 
-
 @CrossOrigin("*")
 @RestController
 public class BateauController {

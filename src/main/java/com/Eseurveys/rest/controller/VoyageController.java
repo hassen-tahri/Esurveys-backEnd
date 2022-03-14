@@ -1,11 +1,13 @@
 package com.Eseurveys.rest.controller;
 
 import java.lang.reflect.Type;
+import java.util.Date;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -58,10 +60,13 @@ public class VoyageController {
 	}
 
 	@GetMapping("/voyage/code/{code}")
-	public Object getVoyageById(@PathVariable String code) {
+	public Object getVoyageByCode(@PathVariable String code) {
 		Voyage voyage = voyageService.getByCode(code);
-		VoyageDto voyageDto = modelMapper.map(voyage, VoyageDto.class);
-		return ResponseEntity.status(HttpStatus.CREATED).body(voyageDto);
+		if (voyage != null) {
+			VoyageDto voyageDto = modelMapper.map(voyage, VoyageDto.class);
+			return ResponseEntity.status(HttpStatus.CREATED).body(voyageDto);
+		}
+		return ResponseEntity.status(HttpStatus.CREATED).body(null);
 	}
 
 	@GetMapping("/voyage/portChargement/{id}")
@@ -87,7 +92,7 @@ public class VoyageController {
 		voyageService.deleteVoyage(id);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
 	}
-	
+
 	@PostMapping("/voyage/bateau/{idB}/portCh/{idPch}/portDch/{idPDch}")
 	public Object addVoyage(@RequestBody VoyageDto voyageDto, @PathVariable("idB") Long idB,
 			@PathVariable("idPch") Long idPch, @PathVariable("idPDch") Long idPDch) {
@@ -102,7 +107,7 @@ public class VoyageController {
 		voyageDto = modelMapper.map(voyage, VoyageDto.class);
 		return ResponseEntity.status(HttpStatus.CREATED).body(voyageDto);
 	}
-	
+
 	@PutMapping("/voyage/{idV}/bateau/{idB}/portCh/{idPch}/portDch/{idPDch}")
 	public Object UpdateVoyage(@RequestBody VoyageDto voyageDto, @PathVariable("idV") Long idV,
 			@PathVariable("idB") Long idB, @PathVariable("idPch") Long idPch, @PathVariable("idPDch") Long idPDch) {
@@ -116,5 +121,33 @@ public class VoyageController {
 		voyage = voyageService.UpdateVoyage(voyage, idV);
 		voyageDto = modelMapper.map(voyage, VoyageDto.class);
 		return ResponseEntity.status(HttpStatus.CREATED).body(voyageDto);
+	}
+
+	@GetMapping("/voyage/etat/{etat}")
+	public Object getVoyageByEtat(@PathVariable String etat) {
+		List<Voyage> voyages = voyageService.getByEtat(etat);
+		Type listType = new TypeToken<List<VoyageDto>>() {
+		}.getType();
+		List<VoyageDto> voyageDtos = modelMapper.map(voyages, listType);
+		return ResponseEntity.status(HttpStatus.CREATED).body(voyageDtos);
+	}
+
+	@GetMapping("/voyage/archive/{archive}")
+	public Object getVoyageByArchive(@PathVariable Boolean archive) {
+		List<Voyage> voyages = voyageService.getByArchive(archive);
+		Type listType = new TypeToken<List<VoyageDto>>() {
+		}.getType();
+		List<VoyageDto> voyageDtos = modelMapper.map(voyages, listType);
+		return ResponseEntity.status(HttpStatus.CREATED).body(voyageDtos);
+	}
+
+	@GetMapping("/voyage/RangeChargement/{dateDeb}/{dateFin}")
+	public Object getByDateChargementInRange(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateDeb,
+			@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateFin) {
+		List<Voyage> voyages = voyageService.getByDateChargementInRange(dateDeb, dateFin);
+		Type listType = new TypeToken<List<VoyageDto>>() {
+		}.getType();
+		List<VoyageDto> voyageDtos = modelMapper.map(voyages, listType);
+		return ResponseEntity.status(HttpStatus.CREATED).body(voyageDtos);
 	}
 }

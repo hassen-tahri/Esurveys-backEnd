@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 import com.Eseurveys.model.entity.Voyage;
 import java.util.List;
 import java.lang.String;
+import java.lang.Boolean;
+import java.util.Date;
 
 @Repository
 public interface VoyageRepository extends JpaRepository<Voyage, Long> {
@@ -19,4 +21,8 @@ public interface VoyageRepository extends JpaRepository<Voyage, Long> {
 	Voyage findByCode(String code);
 	
 	List<Voyage> findByEtat(String etat);
+	
+	List<Voyage> findByArchive(Boolean archive);
+	
+	List<Voyage> findByDateChargementBetween(Date dateDeb , Date dateFin);
 }
