@@ -41,12 +41,18 @@ public class DommageItem {
 
 	@Column(name = "LARGEUR", length = 1000)
 	private String largeur;
+	
+	@Column(name = "UNITE", length = 1000)
+	private String unite;
 
 	@Column(name = "ANCIENNETE", length = 1000)
 	private String anciennete;
 
 	@Column(name = "DOMMAGE_VALUE", length = 1000)
 	private String dommageValue;
+	
+	@Column(name = "PHASE", length = 1000)
+	private String phase;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "DOMMAGE_ID")

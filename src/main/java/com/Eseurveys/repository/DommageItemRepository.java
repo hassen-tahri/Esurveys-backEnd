@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface DommageItemRepository extends JpaRepository<DommageItem, Long> {
 	List<DommageItem> findByConstatId(Long id);
+	List<DommageItem> findByConstatIdAndPhase(Long id , String phase);
 }

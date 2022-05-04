@@ -21,13 +21,21 @@ public class ConstatDto {
 
 	private Long plombCode;
 
-	private String remarque;
+	private String remarqueChargement;
+	
+	private String remarqueDechargement;
 
-	private Boolean expertise;
+	private Boolean expertiseCh;
 
-	private Boolean interchange;
+	private Boolean interchangeCh;
+	
+	private Boolean expertiseDch;
+	
+	private Boolean interchangeDch;
 	
 	private String etat;
+	
+	private String phase;
 	
 	private Date dateChargement;
 	

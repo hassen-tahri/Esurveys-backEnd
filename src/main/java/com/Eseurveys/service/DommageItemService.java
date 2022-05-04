@@ -16,6 +16,8 @@ public interface DommageItemService {
 
 	List<DommageItem> getByConstat(Long id);
 	
+	List<DommageItem> getByConstatAndPhase(Long id , String phase);
+	
 	void deletById(Long id);
 
 }

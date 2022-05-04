@@ -3,6 +3,7 @@ package com.Eseurveys.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.Eseurveys.model.entity.User;
@@ -38,7 +39,11 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void deletUser(Long id) {
-		userRepository.deleteById(id);
+		try {
+			userRepository.deleteById(id);
+		} catch (EmptyResultDataAccessException e) {
+			System.out.println("erreur delete");
+		}
 	}
 
 	@Override

@@ -47,4 +47,9 @@ public class DommageItemServiceImpl implements DommageItemService {
 		
 	}
 
+	@Override
+	public List<DommageItem> getByConstatAndPhase(Long id, String phase) {
+		return (List<DommageItem>) itemRepository.findByConstatIdAndPhase(id, phase);
+	}
+
 }

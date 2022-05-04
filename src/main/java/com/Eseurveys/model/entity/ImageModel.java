@@ -7,8 +7,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,9 +38,14 @@ public class ImageModel {
 
 	@Column(name = "type")
 	private String type;
+	
 
-	@Column(name = "picByte", length = 1000)
+	@Lob
+	@Column(name = "picByte")
+	@Type(type = "org.hibernate.type.BinaryType")
 	private byte[] picByte;
+
+
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CONSTAT_ID")

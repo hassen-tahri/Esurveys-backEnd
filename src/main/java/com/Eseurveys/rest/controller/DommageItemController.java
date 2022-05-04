@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -73,7 +74,7 @@ public class DommageItemController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(itemDto);
 	}
 	
-	@PostMapping("/dommageItem/{id}/dommage/{idD}/constat/{idC}")
+	@PutMapping("/dommageItem/{id}/dommage/{idD}/constat/{idC}")
 	public Object edit(@RequestBody DommageItemDto itemDto, @PathVariable Long id ,@PathVariable Long idD, @PathVariable Long idC) {
 		DommageItem item = modelMapper.map(itemDto, DommageItem.class);
 		try {
@@ -101,6 +102,14 @@ public class DommageItemController {
 	public Object getByConstat(@PathVariable Long idC) {
 		List<DommageItem> items = itemService.getByConstat(idC);
 		Type listType = new TypeToken<List<UniteDto>>() {}.getType();
+		List<DommageItemDto> itemDtos = modelMapper.map(items, listType);
+		return ResponseEntity.status(HttpStatus.CREATED).body(itemDtos);
+	}
+	
+	@GetMapping("/dommageItem/constat/{idC}/phase/{phase}")
+	public Object getByConstatAndPhase(@PathVariable Long idC , @PathVariable String phase) {
+		List<DommageItem> items = itemService.getByConstatAndPhase(idC, phase);
+		Type listType = new TypeToken<List<DommageItemDto>>() {}.getType();
 		List<DommageItemDto> itemDtos = modelMapper.map(items, listType);
 		return ResponseEntity.status(HttpStatus.CREATED).body(itemDtos);
 	}

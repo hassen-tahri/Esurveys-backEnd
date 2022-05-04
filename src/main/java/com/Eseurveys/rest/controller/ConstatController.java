@@ -11,6 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -119,23 +120,23 @@ public class ConstatController {
 	public Object addConstat(@RequestBody ConstatDto constatDto, @PathVariable Long idV, @PathVariable Long idCh,
 			@PathVariable Long idU, @PathVariable Long idInsCh, @PathVariable Long idInsDch) {
 		Constat constat = modelMapper.map(constatDto, Constat.class);
-		try {
-			Chargeur chargeur = chargeurService.getChargeurById(idCh);
-			Unite unite = uniteService.getById(idU);
-			Voyage voyage = voyageService.getVoyageById(idV);
-			Inspecteur inspecteurCh = inspecteurService.getInpecteurById(idInsCh);
-			Inspecteur inspecteurDch = inspecteurService.getInpecteurById(idInsDch);
-			constat.setChargeur(chargeur);
-			constat.setVoyage(voyage);
-			constat.setInspecteurChargement(inspecteurCh);
-			constat.setInspecteurDechargement(inspecteurDch);
-			constat.setUnite(unite);
-		} catch (Exception e) {
-			constat.setChargeur(null);
-			constat.setVoyage(null);
+		Chargeur chargeur = chargeurService.getChargeurById(idCh);
+		Unite unite = uniteService.getById(idU);
+		Voyage voyage = voyageService.getVoyageById(idV);
+		constat.setUnite(unite);
+		constat.setChargeur(chargeur);
+		constat.setVoyage(voyage);
+		if (idInsCh == -1) {
 			constat.setInspecteurChargement(null);
+		} else {
+			Inspecteur inspecteurCh = inspecteurService.getInpecteurById(idInsCh);
+			constat.setInspecteurChargement(inspecteurCh);
+		}
+		if (idInsDch == -1) {
 			constat.setInspecteurDechargement(null);
-			constat.setUnite(null);
+		} else {
+			Inspecteur inspecteurDch = inspecteurService.getInpecteurById(idInsDch);
+			constat.setInspecteurDechargement(inspecteurDch);
 		}
 		constat = constatService.addConstat(constat);
 		constatDto = modelMapper.map(constat, ConstatDto.class);
@@ -146,23 +147,23 @@ public class ConstatController {
 	public Object editChargeur(@RequestBody ConstatDto constatDto, @PathVariable Long id, @PathVariable Long idV,
 			@PathVariable Long idCh, @PathVariable Long idU, @PathVariable Long idInsCh, @PathVariable Long idInsDch) {
 		Constat constat = modelMapper.map(constatDto, Constat.class);
-		try {
-			Chargeur chargeur = chargeurService.getChargeurById(idCh);
-			Unite unite = uniteService.getById(idU);
-			Voyage voyage = voyageService.getVoyageById(idV);
-			Inspecteur inspecteurCh = inspecteurService.getInpecteurById(idInsCh);
-			Inspecteur inspecteurDch = inspecteurService.getInpecteurById(idInsDch);
-			constat.setChargeur(chargeur);
-			constat.setVoyage(voyage);
-			constat.setInspecteurChargement(inspecteurCh);
-			constat.setInspecteurDechargement(inspecteurDch);
-			constat.setUnite(unite);
-		} catch (Exception e) {
-			constat.setChargeur(null);
-			constat.setVoyage(null);
+		Chargeur chargeur = chargeurService.getChargeurById(idCh);
+		Unite unite = uniteService.getById(idU);
+		Voyage voyage = voyageService.getVoyageById(idV);
+		constat.setUnite(unite);
+		constat.setChargeur(chargeur);
+		constat.setVoyage(voyage);
+		if (idInsCh == -1) {
 			constat.setInspecteurChargement(null);
+		} else {
+			Inspecteur inspecteurCh = inspecteurService.getInpecteurById(idInsCh);
+			constat.setInspecteurChargement(inspecteurCh);
+		}
+		if (idInsDch == -1) {
 			constat.setInspecteurDechargement(null);
-			constat.setUnite(null);
+		} else {
+			Inspecteur inspecteurDch = inspecteurService.getInpecteurById(idInsDch);
+			constat.setInspecteurDechargement(inspecteurDch);
 		}
 		constat = constatService.updateConstat(constat, id);
 		constatDto = modelMapper.map(constat, ConstatDto.class);
@@ -219,6 +220,12 @@ public class ConstatController {
 		}.getType();
 		List<ConstatDto> constatDtos = modelMapper.map(constats, listType);
 		return ResponseEntity.status(HttpStatus.CREATED).body(constatDtos);
+	}
+	
+	@DeleteMapping("/constat/{id}")
+	public Object deleteById(@PathVariable Long id) {
+		constatService.deletConstat(id);
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
 	}
 
 }

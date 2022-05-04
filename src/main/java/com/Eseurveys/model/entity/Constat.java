@@ -40,14 +40,23 @@ public class Constat {
 	@Column(name = "PLOMB_CODE")
 	private Long plombCode;
 
-	@Column(name = "REMARQUE", length = 60000)
-	private String remarque;
+	@Column(name = "REMARQUE_CHARGEMENT", length = 60000)
+	private String remarqueChargement;
+	
+	@Column(name = "REMARQUE_DECHARGEMENT", length = 60000)
+	private String remarqueDechargement;
 
-	@Column(name = "EXPERTISE")
-	private Boolean expertise;
+	@Column(name = "EXPERTISE_CHARGEMENT")
+	private Boolean expertiseCh;
 
-	@Column(name = "INTERCHANGE")
-	private Boolean interchange;
+	@Column(name = "INTERCHANGE_CHARGEMENT")
+	private Boolean interchangeCh;
+	
+	@Column(name = "EXPERTISE_DECHARGEMENT")
+	private Boolean expertiseDch;
+
+	@Column(name = "INTERCHANGE_DECHARGEMENT")
+	private Boolean interchangeDch;
 
 	@Column(name = "DATE_CHARGEMENT")
 	@Temporal(value = TemporalType.DATE)
@@ -59,6 +68,9 @@ public class Constat {
 
 	@Column(name = "ETAT", length = 60000)
 	private String etat;
+	
+	@Column(name = "PHASE", length = 60000)
+	private String phase;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "VOYAGE_ID")
