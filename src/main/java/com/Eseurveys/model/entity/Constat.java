@@ -65,6 +65,11 @@ public class Constat {
 	@Column(name = "DATE_DECHARGEMENT")
 	@Temporal(value = TemporalType.DATE)
 	private Date dateDechargement;
+	
+	@Column(name = "DATE_CREATION")
+	@Temporal(value = TemporalType.DATE)
+	private Date dateCreation;
+
 
 	@Column(name = "ETAT", length = 60000)
 	private String etat;

@@ -50,5 +50,7 @@ public class ConstatDto {
 	private InspecteurDto inspecteurChargement;
 
 	private InspecteurDto inspecteurDechargement;
+	
+	private Date dateCreation;
 
 }
