@@ -88,14 +88,12 @@ public class ImageUploadController {
 
 
 	
-//	@DeleteMapping("constat/image/{id}")
-//	public Object deleteImage(@PathVariable Long id) throws IOException {
-//		final Optional<ImageModel> retrievedImage = imageModelReository.findByConstatId(id);
-//		ImageModel img = retrievedImage.get();
-//		imageModelReository.deleteById(img.getId());
-//		return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
-//
-//	}
+	@DeleteMapping("constat/image/{name}")
+	public Object deleteImage(@PathVariable String name) throws IOException {
+		ImageModel ImageModel = imageModelReository.findByName(name);
+		imageModelReository.delete(ImageModel);
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+	}
 
 	public static byte[] compressBytes(byte[] data) {
 		Deflater deflater = new Deflater();

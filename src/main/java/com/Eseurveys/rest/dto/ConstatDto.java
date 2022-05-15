@@ -19,7 +19,7 @@ public class ConstatDto {
 
 	private Long remorqueCode;
 
-	private Long plombCode;
+	private String plombCode;
 
 	private String remarqueChargement;
 	

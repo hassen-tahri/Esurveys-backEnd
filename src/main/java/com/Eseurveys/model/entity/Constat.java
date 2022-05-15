@@ -38,7 +38,7 @@ public class Constat {
 	private Long id;
 
 	@Column(name = "PLOMB_CODE")
-	private Long plombCode;
+	private String plombCode;
 
 	@Column(name = "REMARQUE_CHARGEMENT", length = 60000)
 	private String remarqueChargement;
