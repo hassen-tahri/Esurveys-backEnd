@@ -79,4 +79,9 @@ public class VoyageServiceImpl implements VoyageService {
 		return (List<Voyage>) voyageRepository.findByDateChargementBetween(dateDeb, dateFin);
 	}
 
+	@Override
+	public Integer getNbrVoyageByDateChargement(Date date) {
+		return voyageRepository.findByDateChargement(date).size();
+	}
+
 }

@@ -35,4 +35,14 @@ public interface ConstatService {
 	List<Constat> getByInspecteurDechargementAndDateChargementInRange(Long id , Date dateDeb , Date dateFin);
 	
 	List<Constat> getByChargeurAndEtat(Long id , String etat);
+	
+	Integer getNbrConstatByInspecteurId(Long id);
+	
+	Integer getNbrConstatByCharegeurId(Long id);
+	
+	Integer getNbrAllConstat();
+	
+	Integer getNbrConstatByPhase(String phase);
+	
+	Integer getNbrByChargeurAndPhase(Long id, String phase);
 }

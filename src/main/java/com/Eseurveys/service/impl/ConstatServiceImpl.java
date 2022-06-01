@@ -91,4 +91,30 @@ public class ConstatServiceImpl implements ConstatService {
 		return (List<Constat>) constatRepository.findByChargeurIdAndEtat(id, etat);
 	}
 
+	@Override
+	public Integer getNbrConstatByInspecteurId(Long id) {
+		// TODO Auto-generated method stub
+		return (Integer) null;
+	}
+
+	@Override
+	public Integer getNbrConstatByCharegeurId(Long id) {
+		return constatRepository.findByChargeurId(id).size();
+	}
+
+	@Override
+	public Integer getNbrAllConstat() {
+		return constatRepository.findAll().size();
+	}
+
+	@Override
+	public Integer getNbrConstatByPhase(String phase) {
+		return constatRepository.findByPhase(phase).size();
+	}
+
+	@Override
+	public Integer getNbrByChargeurAndPhase(Long id, String phase) {
+		return constatRepository.findByChargeurIdAndPhase(id, phase).size();
+	}
+
 }

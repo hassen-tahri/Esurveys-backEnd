@@ -150,4 +150,17 @@ public class VoyageController {
 		List<VoyageDto> voyageDtos = modelMapper.map(voyages, listType);
 		return ResponseEntity.status(HttpStatus.CREATED).body(voyageDtos);
 	}
+	
+	@GetMapping("/voyage/CountByDateChargement/{date}")
+	public Object countByDateChargement(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+		int nbr = voyageService.getNbrVoyageByDateChargement(date);
+		return ResponseEntity.status(HttpStatus.CREATED).body(nbr);
+	}
+	
+	@GetMapping("/voyage/CountAll/")
+	public Object countAll() {
+		Integer nbr = voyageService.getAll().size();
+		return ResponseEntity.status(HttpStatus.CREATED).body(nbr);
+	}
+	
 }

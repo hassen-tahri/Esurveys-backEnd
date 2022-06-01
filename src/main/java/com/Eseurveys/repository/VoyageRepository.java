@@ -25,4 +25,6 @@ public interface VoyageRepository extends JpaRepository<Voyage, Long> {
 	List<Voyage> findByArchive(Boolean archive);
 	
 	List<Voyage> findByDateChargementBetween(Date dateDeb , Date dateFin);
+	
+	List<Voyage> findByDateChargement(Date datechargement);
 }

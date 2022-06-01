@@ -31,4 +31,8 @@ public interface ConstatRepository extends JpaRepository<Constat, Long> {
     
     //chargeur and etat 
     List<Constat> findByChargeurIdAndEtat(Long id, String etat);
+    
+    List<Constat> findByPhase(String phase);
+    
+    List<Constat> findByChargeurIdAndPhase(Long id , String phase);
 }

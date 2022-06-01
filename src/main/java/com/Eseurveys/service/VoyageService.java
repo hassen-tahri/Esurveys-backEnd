@@ -30,4 +30,6 @@ public interface VoyageService {
 	
 	List<Voyage> getByDateChargementInRange(Date dateDeb , Date dateFin);
 	
+	Integer getNbrVoyageByDateChargement(Date date);
+	
 }

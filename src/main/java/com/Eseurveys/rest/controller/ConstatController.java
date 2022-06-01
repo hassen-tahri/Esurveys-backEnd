@@ -227,5 +227,24 @@ public class ConstatController {
 		constatService.deletConstat(id);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
 	}
+	
+	
+	@GetMapping("/constat/countByChargeurAndPhase/{idChargeur}/phase/{phase}")
+	public Object countByChargeurAndPhase(@PathVariable Long idChargeur , @PathVariable String phase) {
+		Integer nbr = constatService.getNbrByChargeurAndPhase(idChargeur, phase);
+		return ResponseEntity.status(HttpStatus.CREATED).body(nbr);
+	}
+	
+	@GetMapping("/constat/countAll/")
+	public Object countAll() {
+		Integer nbr = constatService.getAll().size();
+		return ResponseEntity.status(HttpStatus.CREATED).body(nbr);
+	}
+	
+	@GetMapping("/constat/countByPhase/{phase}")
+	public Object countByPhase(@PathVariable String phase) {
+		Integer nbr = constatService.getNbrConstatByPhase(phase);
+		return ResponseEntity.status(HttpStatus.CREATED).body(nbr);
+	}
 
 }
