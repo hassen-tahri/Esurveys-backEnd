@@ -20,6 +20,8 @@ public class ImageModelDto {
 	private String type;
 
 	private byte[] picByte;
+	
+	private String phase;
 
 	private ConstatDto constat;
 

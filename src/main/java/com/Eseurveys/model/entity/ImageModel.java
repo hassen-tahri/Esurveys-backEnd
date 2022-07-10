@@ -39,6 +39,9 @@ public class ImageModel {
 	@Column(name = "type")
 	private String type;
 	
+	@Column(name = "phase")
+	private String phase;
+	
 
 	@Lob
 	@Column(name = "picByte")

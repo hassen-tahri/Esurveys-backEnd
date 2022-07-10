@@ -51,13 +51,14 @@ public class ImageUploadController {
 	@Autowired
 	private ModelMapper modelMapper;
 
-	@PostMapping("constat/{id}/image/upload")
-	public Object uplaodImage(@RequestParam("imageFile") MultipartFile file, @PathVariable Long id) throws IOException {
+	@PostMapping("constat/{id}/phase/{phase}/image/upload")
+	public Object uplaodImage(@RequestParam("imageFile") MultipartFile file, @PathVariable Long id, @PathVariable String phase) throws IOException {
 		System.out.println("Original Image Byte Size - " + file.getBytes().length);
 
 		ImageModel img = new ImageModel(file.getOriginalFilename(), file.getContentType(),
 				compressBytes(file.getBytes()));
 		Constat constat = constatService.getConstatById(id);
+		img.setPhase(phase);
 		img.setConstat(constat);
 		imageModelReository.save(img);
 		return ResponseEntity.status(HttpStatus.OK).body("image sent");
@@ -131,5 +132,27 @@ public class ImageUploadController {
 		}
 		return outputStream.toByteArray();
 	}
+	
+	
+	@GetMapping("constat/{id}/phase/{phase}/image/getAllConstatPhase")
+	public Object getAllImagesByConstatPhase(@PathVariable Long id, @PathVariable String phase) {
+		List<ImageModel> listImage = imageModelReository.findByConstatIdAndPhase(id, phase);
+		for (int i = 0; i < listImage.size(); i++) {
+			listImage.set(i, new ImageModel(listImage.get(i).getName(), listImage.get(i).getType(),
+					decompressBytes(listImage.get(i).getPicByte())));
+		}
+		Type listType = new TypeToken<List<ImageModelDto>>() {
+		}.getType();
+		List<ImageModelDto> imageModelDtos = modelMapper.map(listImage, listType);
+		return ResponseEntity.status(HttpStatus.CREATED).body(imageModelDtos);
+	}
+	
+    @GetMapping("constat/{id}/phase/{phase}/image/getConstatPhase")
+    public ImageModel getImageConstatPhase(@PathVariable Long id, @PathVariable String phase) throws IOException {
+        final List<ImageModel> retrievedImage = imageModelReository.findByConstatIdAndPhase(id, phase);
+        ImageModel img = new ImageModel(retrievedImage.get(0).getName(), retrievedImage.get(0).getType(),
+                decompressBytes(retrievedImage.get(0).getPicByte()));
+        return img;
+    }
 
 }
